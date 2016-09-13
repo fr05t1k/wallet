@@ -1,0 +1,11 @@
+syntax = "proto2";
+
+package wallet;
+
+service Wallet {
+    rpc GetTotal (Total) returns (Total){};
+}
+
+message Total {
+    required int64 value = 1;
+}

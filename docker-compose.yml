@@ -1,0 +1,17 @@
+version: '2'
+volumes:
+  mongodb:
+    driver: local
+services:
+    mongo.d:
+        image: mongo:latest
+        volumes:
+            - "mongodb:/data/db"
+    wallet.d:
+        env_file: .env
+        image: golang:alpine
+        entrypoint: go run -v src/github.com/fr05t1k/wallet/main.go
+        depends_on:
+            - mongo.d
+        volumes:
+            - "${GOPATH}:/go"
