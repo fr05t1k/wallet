@@ -1,24 +1,20 @@
 package main
 
 import (
-	"os"
 	_ "github.com/joho/godotenv"
 	"github.com/fr05t1k/wallet/db"
-	"strconv"
 )
-import server "github.com/fr05t1k/wallet/grpc"
+import (
+	server "github.com/fr05t1k/wallet/grpc"
+	"github.com/fr05t1k/wallet/config"
+)
 
-var (
-	port, _ = strconv.Atoi(os.Getenv("WALLET_PORT"))
-	mongoConnectionString = os.Getenv("WALLET_MONGODB_CONNECTION_STRING")
-	mongoDBName = os.Getenv("WALLET_MONGODB_DB_NAME")
-)
 
 func init() {
-	db.Connect(mongoConnectionString, mongoDBName)
+	db.Connect(config.GetConfig().MongoDbHost, config.GetConfig().MongoDbDatabase)
 	runner := &server.WalletServer{}
 
-	runner.Run(uint16(port))
+	runner.Run(config.GetConfig().GrpcPort)
 }
 
 func main() {

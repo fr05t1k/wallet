@@ -2,7 +2,7 @@
 
 #!/usr/bin/env bash
 
-CONTAINER_NAME=wallet
+CONTAINER_NAME=wallet.d
 PACKAGE_NAME=github.com/fr05t1k/wallet
 
 case $1 in
