@@ -18,8 +18,8 @@ case $1 in
     bash)
         docker-compose run ${CONTAINER_NAME} bash
     ;;
-    build)
-        echo "didn't implement"
+    gen)
+        protoc -I ./ wallet.proto --go_out=plugins=grpc:wallet
     ;;
     *)
         echo "Command not found!"
@@ -29,7 +29,7 @@ case $1 in
         echo "  up      - up containers"
         echo "  test    - running tests"
         echo "  bash    - running bash"
-        echo "  build   - build debian package (debil required)"
+        echo "  gen     - generate proto classes"
 
 esac
 

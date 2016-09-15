@@ -16,6 +16,10 @@ func (server *WalletServer)GetTotal(ctx context.Context, total *wallet.Total) (*
 	return total, nil
 }
 
+func (server *WalletServer)AddOperation(ctx context.Context, operation *wallet.Operation) (*wallet.Total, error) {
+	return &wallet.Total{Value:int64(0)}, nil
+}
+
 func (server *WalletServer)Run(port uint16) {
 	log.Println("Starting GRPC server")
 	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", port))

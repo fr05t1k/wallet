@@ -1,11 +1,19 @@
-syntax = "proto2";
+syntax = "proto3";
 
 package wallet;
 
 service Wallet {
-    rpc GetTotal (Total) returns (Total){};
+    rpc GetTotal (Total) returns (Total) {
+    };
+    rpc AddOperation (Operation) returns (Total) {
+    };
 }
 
 message Total {
-    required int64 value = 1;
+    int64 value = 1;
+}
+
+message Operation {
+    int64 value = 1;
+    string note = 2;
 }
