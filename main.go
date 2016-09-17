@@ -2,21 +2,18 @@ package main
 
 import (
 	_ "github.com/joho/godotenv"
-	"github.com/fr05t1k/wallet/db"
+	database "github.com/fr05t1k/wallet/db"
 )
 import (
-	server "github.com/fr05t1k/wallet/grpc"
+	"github.com/fr05t1k/wallet/server"
 	"github.com/fr05t1k/wallet/config"
+	"github.com/fr05t1k/wallet/operation"
 )
 
-
-func init() {
-	db.Connect(config.GetConfig().MongoDbHost, config.GetConfig().MongoDbDatabase)
-	runner := &server.WalletServer{}
-
-	runner.Run(config.GetConfig().GrpcPort)
-}
-
 func main() {
+	db := database.Connect(config.GetConfig().MongoDbHost, config.GetConfig().MongoDbDatabase)
+	operations := operation.Manager{DB:db}
 
+	runner := &server.Wallet{Operations: &operations}
+	runner.Run(config.GetConfig().GrpcPort)
 }

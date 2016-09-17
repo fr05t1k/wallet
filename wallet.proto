@@ -1,9 +1,11 @@
 syntax = "proto3";
 
+import "google/protobuf/empty.proto";
+
 package wallet;
 
 service Wallet {
-    rpc GetTotal (Total) returns (Total) {
+    rpc GetTotal (google.protobuf.Empty) returns (Total) {
     };
     rpc AddOperation (Operation) returns (Total) {
     };

@@ -11,6 +11,7 @@ case $1 in
     ;;
     run)
         docker-compose run ${CONTAINER_NAME} go run -v src/${PACKAGE_NAME}/main.go
+        docker-compose rm -f
     ;;
     test|tests)
         echo "didn't implement"
@@ -19,18 +20,19 @@ case $1 in
         docker-compose run ${CONTAINER_NAME} bash
     ;;
     gen)
-        protoc -I ./ wallet.proto --go_out=plugins=grpc:wallet
+        protoc --proto_path=${GOOGLE_PROTOBUF_INCLUDE_PATH} -I ./  wallet.proto --go_out=plugins=grpc:wallet
     ;;
     *)
-        echo "Command not found!"
+        echo "Usage:"
+        echo "       	run command [arguments]"
         echo ""
-        echo "Available commands: app, tests, test"
-        echo "  run     - run application"
-        echo "  up      - up containers"
-        echo "  test    - running tests"
-        echo "  bash    - running bash"
-        echo "  gen     - generate proto classes"
+        echo "The commands are:"
+        echo ""
+        echo "       	run     run application"
+        echo "       	up      up containers"
+        echo "       	test    running tests"
+        echo "       	bash    running bash"
+        echo "       	gen     generate proto classes"
 
 esac
-
 

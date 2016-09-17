@@ -5,13 +5,26 @@ volumes:
 services:
     mongo.d:
         image: mongo:latest
+        ports:
+            - 27020:27017
         volumes:
             - "mongodb:/data/db"
-    wallet.d:
-        env_file: .env
-        image: golang:alpine
-        entrypoint: go run -v src/github.com/fr05t1k/wallet/main.go
-        depends_on:
-            - mongo.d
-        volumes:
-            - "${GOPATH}:/go"
+#    client.d:
+#        image: golang:alpine
+#        depends_on:
+#            - mongo.d
+#            - wallet.d
+#        volumes:
+#            - "${GOPATH}:/go"
+#        working_dir: /go/src/github.com/fr05t1k/wallet
+#
+#    wallet.d:
+#        env_file: .env
+#        image: golang:alpine
+#        entrypoint: go run -v src/github.com/fr05t1k/wallet/main.go
+#        depends_on:
+#            - mongo.d
+#        ports:
+#            - 50051
+#        volumes:
+#            - "${GOPATH}:/go"
