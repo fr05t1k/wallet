@@ -7,6 +7,7 @@ import (
 	"google.golang.org/grpc"
 	"github.com/golang/protobuf/ptypes/empty"
 	"time"
+	"github.com/golang/protobuf/ptypes/timestamp"
 )
 
 func TestAddOperation(t *testing.T) {
@@ -27,7 +28,12 @@ func TestAddOperation(t *testing.T) {
 		t.FailNow()
 	}
 
-	operations := wallet.Operation{Value:int64(1000), Note:"Test"}
+	now := timestamp.Timestamp{time.Now().Unix(), 0}
+	operations := wallet.Operation{
+		Value:int64(1000),
+		Note:"Test",
+		Time: &now,
+	}
 
 	_, err = client.AddOperation(ctx, &operations)
 
