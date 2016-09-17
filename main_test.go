@@ -45,6 +45,7 @@ func TestAddOperation(t *testing.T) {
 
 	difference := newTotal.Value - total.Value
 	if difference != 1000 {
-		t.Errorf("Incorrect add operation difference is: %d", difference)
+		t.Errorf("Incorrect add operation difference is: %d Old: %d New: %d",
+			difference, total.Value, newTotal.Value)
 	}
 }
