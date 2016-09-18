@@ -1,8 +1,8 @@
 package config
 
 import (
-	"strconv"
 	"os"
+	"strconv"
 )
 
 type config struct {
@@ -11,7 +11,7 @@ type config struct {
 	MongoDbDatabase string
 }
 
-var configInstance config;
+var configInstance config
 
 func init() {
 	port, err := strconv.Atoi(os.Getenv("WALLET_PORT"))
@@ -28,6 +28,3 @@ func init() {
 func GetConfig() config {
 	return configInstance
 }
-
-
-

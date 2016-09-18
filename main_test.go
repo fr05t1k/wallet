@@ -1,13 +1,13 @@
 package main
 
 import (
-	"testing"
 	"github.com/fr05t1k/wallet/wallet"
+	"github.com/golang/protobuf/ptypes/empty"
+	"github.com/golang/protobuf/ptypes/timestamp"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
-	"github.com/golang/protobuf/ptypes/empty"
+	"testing"
 	"time"
-	"github.com/golang/protobuf/ptypes/timestamp"
 )
 
 func TestAddOperation(t *testing.T) {
@@ -21,7 +21,7 @@ func TestAddOperation(t *testing.T) {
 
 	client := wallet.NewWalletClient(conn)
 
-	ctx, _ := context.WithTimeout(context.Background(), time.Millisecond * 500)
+	ctx, _ := context.WithTimeout(context.Background(), time.Millisecond*500)
 	total, err := client.GetTotal(ctx, &empty.Empty{})
 	if err != nil {
 		t.Errorf("Can't get total: %v", err)
@@ -30,9 +30,9 @@ func TestAddOperation(t *testing.T) {
 
 	now := timestamp.Timestamp{time.Now().Unix(), 0}
 	operations := wallet.Operation{
-		Value:int64(1000),
-		Note:"Test",
-		Time: &now,
+		Value: int64(1000),
+		Note:  "Test",
+		Time:  &now,
 	}
 
 	_, err = client.AddOperation(ctx, &operations)

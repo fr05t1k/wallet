@@ -1,10 +1,9 @@
 package db
 
 import (
-	"log"
 	"gopkg.in/mgo.v2"
+	"log"
 )
-
 
 func Connect(connectionString string, database string) *mgo.Database {
 	log.Println("Trying to connect to mongodb: " + connectionString)
@@ -17,5 +16,5 @@ func Connect(connectionString string, database string) *mgo.Database {
 	log.Println("MongoDB connection succeed")
 
 	session.SetMode(mgo.Monotonic, true)
-	return session.DB(database);
+	return session.DB(database)
 }

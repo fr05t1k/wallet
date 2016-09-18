@@ -13,16 +13,16 @@ type Manager struct {
 	DB *mgo.Database
 }
 
-func ( manager *Manager)AddOperation(operation *wallet.Operation) (error) {
+func (manager *Manager) AddOperation(operation *wallet.Operation) error {
 	return manager.DB.C(collectionName).Insert(operation)
 }
 
-func (manager *Manager)GetTotal() (*wallet.Total, error) {
+func (manager *Manager) GetTotal() (*wallet.Total, error) {
 	pipe := manager.DB.C(collectionName).Pipe(
 		[]bson.M{{
-			"$group" : bson.M{
-				"_id" : bson.NewObjectId(),
-				"total" : bson.M{"$sum": "$value"},
+			"$group": bson.M{
+				"_id":   bson.NewObjectId(),
+				"total": bson.M{"$sum": "$value"},
 			},
 		}},
 	)

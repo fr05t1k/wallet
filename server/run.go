@@ -1,14 +1,14 @@
 package server
 
 import (
-	"log"
-	"net"
 	"fmt"
 	"github.com/fr05t1k/wallet/wallet"
 	"google.golang.org/grpc"
+	"log"
+	"net"
 )
 
-func (server *Wallet)Run(port uint16) {
+func (server *Wallet) Run(port uint16) {
 	log.Println("Starting GRPC server")
 	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", port))
 	if err != nil {
@@ -22,4 +22,3 @@ func (server *Wallet)Run(port uint16) {
 		panic(fmt.Sprintf("Failed to start GRPC server %v", err))
 	}
 }
-
