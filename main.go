@@ -11,9 +11,18 @@ import (
 )
 
 func main() {
+	RunWallet()
+
+}
+
+func RunWallet() {
+	runner := GetWalletServer()
+	runner.Run(config.GetConfig().GrpcPort)
+}
+
+func GetWalletServer() *server.Wallet {
 	db := database.Connect(config.GetConfig().MongoDbHost, config.GetConfig().MongoDbDatabase)
 	operations := operation.Manager{DB: db}
 
-	runner := &server.Wallet{Operations: &operations}
-	runner.Run(config.GetConfig().GrpcPort)
+	return &server.Wallet{Operations: &operations}
 }

@@ -6,10 +6,12 @@ import (
 	"github.com/fr05t1k/wallet/wallet"
 	"github.com/golang/protobuf/ptypes/empty"
 	"golang.org/x/net/context"
+	"google.golang.org/grpc"
 )
 
 type Wallet struct {
 	Operations *operation.Manager
+	GrpcServer *grpc.Server
 }
 
 func (server *Wallet) GetTotal(ctx context.Context, e *empty.Empty) (*wallet.Total, error) {

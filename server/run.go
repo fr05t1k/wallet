@@ -14,10 +14,11 @@ func (server *Wallet) Run(port uint16) {
 	if err != nil {
 		panic(fmt.Sprintf("failed to listen: %v", err))
 	}
-	grpcServer := grpc.NewServer()
-	wallet.RegisterWalletServer(grpcServer, server)
+	server.GrpcServer = grpc.NewServer()
+
+	wallet.RegisterWalletServer(server.GrpcServer, server)
 	log.Println(fmt.Sprintf("GRPC server listening on: :%d", port))
-	err = grpcServer.Serve(lis)
+	err = server.GrpcServer.Serve(lis)
 	if err != nil {
 		panic(fmt.Sprintf("Failed to start GRPC server %v", err))
 	}

@@ -11,8 +11,10 @@ import (
 )
 
 func TestAddOperation(t *testing.T) {
+	go RunWallet()
+	time.Sleep(time.Second * 1)
 
-	conn, err := grpc.Dial("127.0.0.1:50051", grpc.WithInsecure())
+	conn, err := grpc.Dial(":50051", grpc.WithInsecure())
 	if err != nil {
 		panic(err)
 	}
